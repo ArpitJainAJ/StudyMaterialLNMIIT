@@ -1,0 +1,115 @@
+import java.util.*;
+import java.sql.*;
+public class sqljava {
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+	static final String DB_URL = "jdbc:mysql://localhost/neelansh";
+
+	static final String USER = "root";
+	static final String PASS = "lnmiit";
+	static Scanner sc=new Scanner(System.in);
+
+	public static void main(String[] args) throws Exception {
+
+
+		Class.forName(JDBC_DRIVER); 
+		Connection conn= DriverManager.getConnection(DB_URL,USER,PASS);
+		System.out.println("Connected database successfully...");
+
+		char ch='y';
+		while(ch=='y' || ch=='Y')
+		{
+			try{
+
+				Statement stmt = conn.createStatement();
+				String sql="select * from record";
+				ResultSet rs=stmt.executeQuery(sql);
+				ArrayList<Record> records=new ArrayList<Record>();
+
+
+				while(rs.next())
+				{
+					Record r= new Record();
+					r.name=rs.getString("name");
+					r.age=rs.getInt("age");
+					r.id=rs.getInt("id");
+					records.add(r);
+				}
+
+
+				System.out.println("Enter your choice\n1.search\n2.add\n3.delete");
+				int choice =sc.nextInt();
+
+
+				switch(choice)
+				{
+				case 1:
+
+					System.out.println("Enter the Emp-id");
+					int empid=sc.nextInt(); 
+
+					Iterator<Record> it = records.iterator();int flag=0;
+					while(it.hasNext())
+					{	
+						Record temp=it.next();
+						if(empid==temp.getId())
+						{	flag=1;
+							System.out.println("Employee found\n");
+							System.out.println("Name: "+temp.getName()+"\nAge: "+temp.getAge());
+							break;
+						}
+						
+					}
+					if(flag==0)
+						System.out.println("Employee not found\n");
+
+					break;
+
+				case 2: System.out.println("Enter the  details");
+				System.out.println("Name:");
+				String name=sc.next();
+				System.out.println("Enter the Age:");
+				int age=sc.nextInt();
+				System.out.println("Enter the  id");
+				int id=sc.nextInt();
+
+				String sql1="insert into record values('"+name+"',"+id+","+age+")";
+
+				int ans=stmt.executeUpdate(sql1);
+				if(ans!=1)
+					throw new Exception() ;   
+				else
+					System.out.println("Entry added\n");
+				break;
+				
+				
+				case 3: System.out.println("Enter id to be deleted");
+				int id1=sc.nextInt();
+					
+					
+				String sql2="delete from record where id="+id1;
+				int ans1=stmt.executeUpdate(sql2);
+				if(ans1!=1)
+					throw new Exception() ;   
+				else
+					System.out.println("Entry deleted");				
+					break;
+				}
+				
+				System.out.println("Want to continue?\ny or n");
+				ch=sc.next().charAt(0);
+				if(ch=='n'||ch=='N')
+					System.out.print("\nTHANKS!");
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+
+
+		}
+	}
+}
+
+
+
+
+
+
