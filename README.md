@@ -22,7 +22,9 @@ Follow the directory structure at all times and use a proper file naming as deta
 	     - End-Term Papers
 	     - Quizes
 	     - Books
-      2. Lab (Instructor's Name or Schedule)
+2. Lab
+   1. Year of Content
+      1. Lab Instructor's Name or Schedule
 	     - Notes
 	     - Assignments
 	     - CIF
