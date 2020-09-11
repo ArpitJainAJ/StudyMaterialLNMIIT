@@ -21,13 +21,20 @@ Follow the directory structure at all times and use a proper file naming as deta
 	     - Mid-term Papers
 	     - End-Term Papers
 	     - Quizes
-      2. Lab (Instructor's Name or Schedule)
+	     - Books
+2. Lab
+   1. Year of Content
+      1. Lab Instructor's Name or Schedule
 	     - Notes
 	     - Assignments
 	     - CIF
 	     - Mid-sem Paper
 	     - End-sem Paper
+	     - Books
 
-Note: Don't mention semester number as subjects and curriculum will alter with time.
+*Important Note:*
+1. Don't mention semester number as subjects and curriculum will alter with time.
+2. I am limited by GitHub's limit of content upload and hence, will take much longer time to upload all data. Needs your valuable contribution.
+3. If you don't know the name of a faulty, mark it as 'New Folder (number)' as appropriate.
 
 Keep Contributing (ಠ‿ಠ) (◠﹏◠)
