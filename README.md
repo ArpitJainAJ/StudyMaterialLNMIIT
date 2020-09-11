@@ -8,33 +8,22 @@ Be a collaborator (ᵔᴥᵔ)
 Follow the directory structure at all times and use a proper file naming as detailed as you can{•̃_•̃} !!!
 
 1. Subject Name
-   1. Year of content
-      1. Subject Instructor's Name
-	      - Notes
-	        * File 1
-		    * File 2
-		    * File 3
-		    * .
-		    * .
-	     - Assignments
-	     - CIF
-	     - Mid-term Papers
-	     - End-Term Papers
-	     - Quizes
-	     - Books
-2. Lab
-   1. Year of Content
-      1. Lab Instructor's Name or Schedule
-	     - Notes
-	     - Assignments
-	     - CIF
-	     - Mid-sem Paper
-	     - End-sem Paper
-	     - Books
+   1. Assignments
+      1. Batch Name
+			* File 1
+			* File 2
+			* File 3
+			* .
+			* .
+   2. Books
+   3. CIF
+   4. Quizes
+   5. End - Term Papers
+   6. Mid - Term Papers
+   7. Notes
 
 *Important Note:*
 1. Don't mention semester number as subjects and curriculum will alter with time.
 2. I am limited by GitHub's limit of content upload and hence, will take much longer time to upload all data. Needs your valuable contribution.
-3. If you don't know the name of a faulty, mark it as 'New Folder (number)' as appropriate.
 
 Keep Contributing (ಠ‿ಠ) (◠﹏◠)
