@@ -1,0 +1,40 @@
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+// 
+
+network ForwardingNetwork
+{
+    parameters:
+        int sourceAdd;
+        int destAdd;
+        
+    submodules:
+        N[5]:Node{
+            id=index;
+            SA=sourceAdd;
+            DA=destAdd;
+        }
+        
+    connections:
+    	N[0].gOUT[0]-->N[2].gIN[1];
+    	N[0].gOUT[1]-->N[1].gIN[0];
+    	N[1].gOUT[0]-->N[0].gIN[1];
+    	N[1].gOUT[1]-->N[2].gIN[0];
+    	N[2].gOUT[0]-->N[1].gIN[1];
+    	N[2].gOUT[1]-->N[0].gIN[0];
+    	N[2].gOUT[2]-->N[3].gIN[0];
+    	N[3].gOUT[0]-->N[2].gIN[2];
+    	N[3].gOUT[1]-->N[4].gIN[0];
+    	N[4].gOUT[0]-->N[3].gIN[1];
+}

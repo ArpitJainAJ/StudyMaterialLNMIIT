@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="TemplateBasedWizard">
+		<item value="bundleentry://357.fwk1533547487/templates/emptynedfile/" key="nedfile.template"/>
+		<item value="bundleentry://357.fwk1533547487/templates/emptynetwork/" key="network.template"/>
+		<item value="bundleentry://357.fwk1533547487/templates/emptysimplemodule/" key="simplemodule.template"/>
+		<item value="bundleentry://351.fwk1533547487/templates/inifile/" key="inifile.template"/>
+		<item value="bundleentry://343.fwk1533547487/template/emptyproject/" key="project.template"/>
+		<item value="bundleentry://355.fwk1533547487/templates/msgfile/" key="msgfile.template"/>
+		<item value="bundleentry://357.fwk1533547487/templates/emptycompoundmodule/" key="compoundmodule.template"/>
+	</section>
+</section>

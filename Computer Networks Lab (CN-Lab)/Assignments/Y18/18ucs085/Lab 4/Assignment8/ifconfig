@@ -1,0 +1,28 @@
+# ifconfig
+enp3s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.22.12.43  netmask 255.255.254.0  broadcast 172.22.13.255
+        inet6 fe80::ffb3:9374:676e:f6ab  prefixlen 64  scopeid 0x20<link>
+        ether 34:64:a9:1f:74:a8  txqueuelen 1000  (Ethernet)
+        RX packets 75379  bytes 104993711 (104.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 53059  bytes 4758635 (4.7 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1185  bytes 124067 (124.0 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1185  bytes 124067 (124.0 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp3s0 (logical name for
+mtu (maximum transmission unit - 1500 bytes max at a time)
+lo (loopback address for internal communication nic logical name)
+inet (ip address total 5 classes, this 172 is in class B used to tell class ID.)
+inet6( hex val of ip6)
+ether( hw address of nic, mac address of 48 bits, fitrst 6 digits for manufacturar and last 6 vary)
+rx(packets received at cuurent time)
+tx(packets transmitted at ciurrent time)
+

@@ -1,0 +1,20 @@
+# traceroute www.facebook.com
+traceroute to www.facebook.com (157.240.13.35), 30 hops max, 60 byte packets
+ 1  _gateway (172.22.12.1)  0.348 ms  0.340 ms  0.330 ms
+ 2  172.22.2.6 (172.22.2.6)  5.024 ms  5.419 ms  5.411 ms
+ 3  220.227.229.65 (220.227.229.65)  9.198 ms  9.194 ms  9.182 ms
+ 4  * * *
+ 5  115.255.252.17 (115.255.252.17)  12.895 ms  13.595 ms  13.586 ms
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  80.81.65.93 (80.81.65.93)  55.025 ms  48.905 ms  48.901 ms
+11  ae10.0.cjr01.sin001.flagtel.com (62.216.128.233)  78.955 ms  78.916 ms  78.386 ms
+12  ae83.pr04.sin1.tfbnw.net (103.4.96.224)  80.587 ms  83.398 ms  87.744 ms
+13  po131.asw02.sin2.tfbnw.net (173.252.65.56)  80.153 ms po121.asw02.sin1.tfbnw.net (157.240.40.244)  78.900 ms po141.asw01.sin2.tfbnw.net (173.252.65.34)  78.462 ms
+14  po241.psw02.sin6.tfbnw.net (129.134.38.83)  78.698 ms po246.psw01.sin6.tfbnw.net (129.134.43.73)  77.802 ms po223.psw02.sin6.tfbnw.net (157.240.33.73)  78.454 ms
+15  157.240.36.33 (157.240.36.33)  77.863 ms 173.252.67.235 (173.252.67.235)  80.747 ms 157.240.39.183 (157.240.39.183)  79.720 ms
+16  edge-star-mini-shv-02-sin6.facebook.com (157.240.13.35)  80.227 ms  80.558 ms  81.272 ms
+cn-6@cselab1pc22:~/Desktop/18ucs085$ 
+

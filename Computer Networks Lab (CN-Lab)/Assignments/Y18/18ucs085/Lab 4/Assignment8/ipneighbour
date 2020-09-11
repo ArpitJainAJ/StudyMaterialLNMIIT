@@ -1,0 +1,4 @@
+# ip neighbour
+172.22.12.52 dev enp3s0 lladdr 34:64:a9:1f:74:a6 STALE
+172.22.12.1 dev enp3s0 lladdr 00:fd:22:38:9e:63 REACHABLE
+

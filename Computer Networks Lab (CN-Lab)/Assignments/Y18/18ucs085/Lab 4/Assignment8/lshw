@@ -1,0 +1,239 @@
+ lshw
+WARNING: you should run this program as super-user.
+cselab1pc22                 
+    description: Computer
+    width: 64 bits
+    capabilities: smp vsyscall32
+  *-core
+       description: Motherboard
+       physical id: 0
+     *-memory
+          description: System memory
+          physical id: 0
+          size: 7899MiB
+     *-cpu
+          product: Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+          vendor: Intel Corp.
+          physical id: 1
+          bus info: cpu@0
+          size: 3890MHz
+          capacity: 4GHz
+          width: 64 bits
+          capabilities: fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp x86-64 constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm ida arat pln pts md_clear flush_l1d cpufreq
+     *-pci
+          description: Host bridge
+          product: 4th Gen Core Processor DRAM Controller
+          vendor: Intel Corporation
+          physical id: 100
+          bus info: pci@0000:00:00.0
+          version: 06
+          width: 32 bits
+          clock: 33MHz
+          configuration: driver=hsw_uncore
+          resources: irq:0
+        *-pci:0
+             description: PCI bridge
+             product: Xeon E3-1200 v3/4th Gen Core Processor PCI Express x16 Controller
+             vendor: Intel Corporation
+             physical id: 1
+             bus info: pci@0000:00:01.0
+             version: 06
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:16 ioport:e000(size=4096) memory:f6000000-f70fffff ioport:e0000000(size=301989888)
+           *-display
+                description: VGA compatible controller
+                product: GM107 [GeForce GTX 750]
+                vendor: NVIDIA Corporation
+                physical id: 0
+                bus info: pci@0000:01:00.0
+                version: a2
+                width: 64 bits
+                clock: 33MHz
+                capabilities: vga_controller bus_master cap_list rom
+                configuration: driver=nouveau latency=0
+                resources: irq:27 memory:f6000000-f6ffffff memory:e0000000-efffffff memory:f0000000-f1ffffff ioport:e000(size=128) memory:c0000-dffff
+           *-multimedia
+                description: Audio device
+                product: NVIDIA Corporation
+                vendor: NVIDIA Corporation
+                physical id: 0.1
+                bus info: pci@0000:01:00.1
+                version: a1
+                width: 32 bits
+                clock: 33MHz
+                capabilities: bus_master cap_list
+                configuration: driver=snd_hda_intel latency=0
+                resources: irq:17 memory:f7080000-f7083fff
+        *-display
+             description: Display controller
+             product: Xeon E3-1200 v3/4th Gen Core Processor Integrated Graphics Controller
+             vendor: Intel Corporation
+             physical id: 2
+             bus info: pci@0000:00:02.0
+             version: 06
+             width: 64 bits
+             clock: 33MHz
+             capabilities: bus_master cap_list
+             configuration: driver=i915 latency=0
+             resources: irq:28 memory:f7400000-f77fffff memory:d0000000-dfffffff ioport:f000(size=64)
+        *-usb:0
+             description: USB controller
+             product: 8 Series/C220 Series Chipset Family USB xHCI
+             vendor: Intel Corporation
+             physical id: 14
+             bus info: pci@0000:00:14.0
+             version: 04
+             width: 64 bits
+             clock: 33MHz
+             capabilities: xhci bus_master cap_list
+             configuration: driver=xhci_hcd latency=0
+             resources: irq:24 memory:f7900000-f790ffff
+        *-communication
+             description: Communication controller
+             product: 8 Series/C220 Series Chipset Family MEI Controller #1
+             vendor: Intel Corporation
+             physical id: 16
+             bus info: pci@0000:00:16.0
+             version: 04
+             width: 64 bits
+             clock: 33MHz
+             capabilities: bus_master cap_list
+             configuration: driver=mei_me latency=0
+             resources: irq:29 memory:f791a000-f791a00f
+        *-usb:1
+             description: USB controller
+             product: 8 Series/C220 Series Chipset Family USB EHCI #2
+             vendor: Intel Corporation
+             physical id: 1a
+             bus info: pci@0000:00:1a.0
+             version: 04
+             width: 32 bits
+             clock: 33MHz
+             capabilities: ehci bus_master cap_list
+             configuration: driver=ehci-pci latency=0
+             resources: irq:16 memory:f7918000-f79183ff
+        *-multimedia
+             description: Audio device
+             product: 8 Series/C220 Series Chipset High Definition Audio Controller
+             vendor: Intel Corporation
+             physical id: 1b
+             bus info: pci@0000:00:1b.0
+             version: 04
+             width: 64 bits
+             clock: 33MHz
+             capabilities: bus_master cap_list
+             configuration: driver=snd_hda_intel latency=0
+             resources: irq:30 memory:f7910000-f7913fff
+        *-pci:1
+             description: PCI bridge
+             product: 8 Series/C220 Series Chipset Family PCI Express Root Port #1
+             vendor: Intel Corporation
+             physical id: 1c
+             bus info: pci@0000:00:1c.0
+             version: d4
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:16 ioport:2000(size=4096) memory:cf200000-cf3fffff ioport:cf400000(size=2097152)
+        *-pci:2
+             description: PCI bridge
+             product: 8 Series/C220 Series Chipset Family PCI Express Root Port #3
+             vendor: Intel Corporation
+             physical id: 1c.2
+             bus info: pci@0000:00:1c.2
+             version: d4
+             width: 32 bits
+             clock: 33MHz
+             capabilities: pci normal_decode bus_master cap_list
+             configuration: driver=pcieport
+             resources: irq:18 ioport:d000(size=4096) memory:f7800000-f78fffff ioport:f2100000(size=1048576)
+           *-network
+                description: Ethernet interface
+                product: RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+                vendor: Realtek Semiconductor Co., Ltd.
+                physical id: 0
+                bus info: pci@0000:03:00.0
+                logical name: enp3s0
+                version: 0c
+                serial: 34:64:a9:1f:74:a8
+                size: 1Gbit/s
+                capacity: 1Gbit/s
+                width: 64 bits
+                clock: 33MHz
+                capabilities: bus_master cap_list ethernet physical tp mii 10bt 10bt-fd 100bt 100bt-fd 1000bt 1000bt-fd autonegotiation
+                configuration: autonegotiation=on broadcast=yes driver=r8169 driverversion=2.3LK-NAPI duplex=full firmware=rtl8168g-2_0.0.1 02/06/13 ip=172.22.12.43 latency=0 link=yes multicast=yes port=MII speed=1Gbit/s
+                resources: irq:18 ioport:d000(size=256) memory:f7800000-f7800fff memory:f2100000-f2103fff
+        *-usb:2
+             description: USB controller
+             product: 8 Series/C220 Series Chipset Family USB EHCI #1
+             vendor: Intel Corporation
+             physical id: 1d
+             bus info: pci@0000:00:1d.0
+             version: 04
+             width: 32 bits
+             clock: 33MHz
+             capabilities: ehci bus_master cap_list
+             configuration: driver=ehci-pci latency=0
+             resources: irq:23 memory:f7917000-f79173ff
+        *-isa
+             description: ISA bridge
+             product: C220 Series Chipset Family H81 Express LPC Controller
+             vendor: Intel Corporation
+             physical id: 1f
+             bus info: pci@0000:00:1f.0
+             version: 04
+             width: 32 bits
+             clock: 33MHz
+             capabilities: isa bus_master cap_list
+             configuration: driver=lpc_ich latency=0
+             resources: irq:0
+        *-storage
+             description: SATA controller
+             product: 8 Series/C220 Series Chipset Family 6-port SATA Controller 1 [AHCI mode]
+             vendor: Intel Corporation
+             physical id: 1f.2
+             bus info: pci@0000:00:1f.2
+             version: 04
+             width: 32 bits
+             clock: 66MHz
+             capabilities: storage ahci_1.0 bus_master cap_list
+             configuration: driver=ahci latency=0
+             resources: irq:25 ioport:f0b0(size=8) ioport:f0a0(size=4) ioport:f090(size=8) ioport:f080(size=4) ioport:f060(size=32) memory:f7916000-f79167ff
+        *-serial UNCLAIMED
+             description: SMBus
+             product: 8 Series/C220 Series Chipset Family SMBus Controller
+             vendor: Intel Corporation
+             physical id: 1f.3
+             bus info: pci@0000:00:1f.3
+             version: 04
+             width: 64 bits
+             clock: 33MHz
+             configuration: latency=0
+             resources: memory:f7915000-f79150ff ioport:f040(size=32)
+WARNING: output may be incomplete or inaccurate, you should run this program as super-user.
+
+
+# lshw -class network
+WARNING: you should run this program as super-user.
+  *-network                 
+       description: Ethernet interface
+       product: RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller
+       vendor: Realtek Semiconductor Co., Ltd.
+       physical id: 0
+       bus info: pci@0000:03:00.0
+       logical name: enp3s0
+       version: 0c
+       serial: 34:64:a9:1f:74:a8
+       size: 1Gbit/s
+       capacity: 1Gbit/s
+       width: 64 bits
+       clock: 33MHz
+       capabilities: bus_master cap_list ethernet physical tp mii 10bt 10bt-fd 100bt 100bt-fd 1000bt 1000bt-fd autonegotiation
+       configuration: autonegotiation=on broadcast=yes driver=r8169 driverversion=2.3LK-NAPI duplex=full firmware=rtl8168g-2_0.0.1 02/06/13 ip=172.22.12.43 latency=0 link=yes multicast=yes port=MII speed=1Gbit/s
+       resources: irq:18 ioport:d000(size=256) memory:f7800000-f7800fff memory:f2100000-f2103fff
+WARNING: output may be incomplete or inaccurate, you should run this program as super-user.
+

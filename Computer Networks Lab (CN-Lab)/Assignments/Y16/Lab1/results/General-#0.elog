@@ -1,0 +1,146 @@
+E # 0 t 0 m 1 ce -1 msg -1
+SB v 1282 rid General-0-20180323-03:42:21-14658 b 1000
+KF p -1 c "" s ""
+MC id 1 c omnetpp::cModule t Nodestwo n Nodestwo cm 1
+MS id 1 d ""
+MC id 2 c Node t Node pid 1 n Node1
+GC m 2 g 0 n in o 0
+GC m 2 g 3 n out o 1
+MS id 2 d ""
+MC id 3 c Node t Node pid 1 n Node2
+GC m 3 g 0 n in o 0
+GC m 3 g 3 n out o 1
+MS id 3 d ""
+CC sm 2 sg 3 dm 3 dg 0
+CC sm 3 sg 3 dm 2 dg 0
+MB sm 1 tm 2 m initialize(0)
+CM id 0 tid 0 eid 0 etid 0 c omnetpp::cMessage n "" pe -1
+BS id 0 tid 0 eid 0 etid 0 c omnetpp::cMessage n "" pe 0
+ES t 0
+ME
+MB sm 1 tm 3 m initialize(0)
+ME
+
+E # 1 t 0 m 2 ce 0 msg 0
+CM id 1 tid 1 eid 1 etid 1 c omnetpp::cMessage n "" pe -1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 1
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 1 cid 2
+
+E # 2 t 0 m 3 ce 1 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 2
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 2 cid 3
+
+E # 3 t 0 m 2 ce 2 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 3
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 3 cid 4
+
+E # 4 t 0 m 3 ce 3 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 4
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 4 cid 5
+
+E # 5 t 0 m 2 ce 4 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 5
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 5 cid 6
+
+E # 6 t 0 m 3 ce 5 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 6
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 6 cid 7
+
+E # 7 t 0 m 2 ce 6 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 7
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 7 cid 8
+
+E # 8 t 0 m 3 ce 7 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 8
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 8 cid 9
+
+E # 9 t 0 m 2 ce 8 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 9
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 9 cid 10
+
+E # 10 t 0 m 3 ce 9 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 10
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 10 cid 11
+
+E # 11 t 0 m 2 ce 10 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 11
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 11 cid 12
+
+E # 12 t 0 m 3 ce 11 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 12
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 12 cid 13
+
+E # 13 t 0 m 2 ce 12 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 13
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 13 cid 14
+
+E # 14 t 0 m 3 ce 13 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 14
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 14 cid 15
+
+E # 15 t 0 m 2 ce 14 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 15
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 15 cid 16
+
+E # 16 t 0 m 3 ce 15 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 16
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 16 cid 17
+
+E # 17 t 0 m 2 ce 16 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 17
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 17 cid 18
+
+E # 18 t 0 m 3 ce 17 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 18
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 18 cid 19
+
+E # 19 t 0 m 2 ce 18 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 19
+SH sm 2 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 19 cid 20
+
+E # 20 t 0 m 3 ce 19 msg 1
+BS id 1 tid 1 eid 1 etid 1 c Pack n "" pe 20
+SH sm 3 sg 3
+ES t 0
+CL id 1 tid 1 eid 1 etid 1 c Pack n "" pe 20 cid 21
+
+E # 21 t 0 m 2 ce 20 msg 1
+SE e 0 c 13 m "No more events, simulation completed -- at t=0s, event #21"

@@ -1,0 +1,7 @@
+#arp
+Address Resolution Protocol (ARP) is a protocol that associates the IP address with the MAC address of a network device. A static ARP entry is a permanent entry in your ARP cache. For example, it might be necessary to add static ARP entries for routers connected to an Active/Active FireCluster.
+
+Address                  HWtype  HWaddress           Flags Mask            Iface
+172.22.12.52             ether   34:64:a9:1f:74:a6   C                     enp3s0
+_gateway                 ether   00:fd:22:38:9e:63   C                     enp3s0
+

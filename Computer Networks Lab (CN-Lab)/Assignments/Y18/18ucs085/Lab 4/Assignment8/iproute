@@ -1,0 +1,5 @@
+#ip route
+default via 172.22.12.1 dev enp3s0 proto dhcp metric 100 
+169.254.0.0/16 dev enp3s0 scope link metric 1000 
+172.22.12.0/23 dev enp3s0 proto kernel scope link src 172.22.12.43 metric 100 
+

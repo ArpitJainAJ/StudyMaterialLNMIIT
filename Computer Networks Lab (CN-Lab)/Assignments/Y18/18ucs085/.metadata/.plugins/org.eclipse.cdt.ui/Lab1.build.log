@@ -1,0 +1,6 @@
+16:45:06 **** Build of configuration release for project Lab1 ****
+make MODE=release all 
+make: Nothing to be done for 'all'.
+
+16:45:06 Build Finished (took 61ms)
+

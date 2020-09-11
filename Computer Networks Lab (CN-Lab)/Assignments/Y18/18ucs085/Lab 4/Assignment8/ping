@@ -1,0 +1,7 @@
+#ping 172.22.12.52
+
+gmail works at smtp port 25(simple mail transfer protocol)
+gmail in mobile port 3
+ftp uses 20,21
+https - port 443
+http - port 80

@@ -1,0 +1,4 @@
+[General]
+network = ForwardingNetwork
+**.sourceAdd = 4
+**.destAdd = 0

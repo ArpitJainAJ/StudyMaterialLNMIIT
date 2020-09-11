@@ -1,0 +1,27 @@
+[Inspector-0]
+classname=Node
+fullscreen=false
+geom=@Rect(67 441 675 327)
+id=@Variant(\0\0\0\x81\0\0\0\0\0\0\0\x2)
+object=layerNetwork.Node1
+type=2
+
+[Inspector-1]
+classname=Node
+fullscreen=false
+geom=@Rect(671 441 675 327)
+id=@Variant(\0\0\0\x81\0\0\0\0\0\0\0\x3)
+object=layerNetwork.Node2
+type=2
+
+[RunModeProfiles]
+fast-max-animation-speed=nan
+fast-max-playback-speed=1e+6
+fast-min-animation-speed=nan
+fast-min-playback-speed=1
+fast-playback-speed=1000
+run-max-animation-speed=nan
+run-max-playback-speed=100
+run-min-animation-speed=nan
+run-min-playback-speed=0.01
+run-playback-speed=1
