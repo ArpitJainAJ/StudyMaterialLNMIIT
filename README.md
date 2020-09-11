@@ -10,23 +10,22 @@ Follow the directory structure at all times and use a proper file naming as deta
   - Year for content
     - Subject Teacher's Name
       - CIF
-        - Notes
-	  - File 1
-	  - File 2
-	  - 
-	  - 
-	  -
+      - Notes
+	1. File
+	2. File
+	3. File
+	4. File
+	5. File
       - Assignments
-	- Mid-term Papers
-	- End-Term Papers
-	- Quizes
-    - Lab
-      - Lab Instructor's Name or Scheduled
-	- CIF
-	- Notes
-	- Assignments
-	- Mid-sem Paper
-	- End-sem Paper
+      - Mid-term Papers
+      - End-Term Papers
+      - Quizes
+    - Lab Instructor's Name or Schedule
+      - CIF
+      - Notes
+      - Assignments
+      - Mid-sem Paper
+      - End-sem Paper
 
 Note: Don't mention semester number as subjects and curriculum will alter with time.
 
