@@ -23,7 +23,7 @@ Follow the directory structure at all times and use a proper file naming as deta
    7. Notes
 
 *Important Note:*
-1. Don't mention semester number as subjects and curriculum will alter with time.
+1. Don't mention semester numbers, as subjects and curriculum will alter with time.
 2. I am limited by GitHub's limit of content upload and hence, will take much longer time to upload all data. Needs your valuable contribution.
 
 Keep Contributing (ಠ‿ಠ) (◠﹏◠)
