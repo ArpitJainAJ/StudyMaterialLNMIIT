@@ -1,0 +1,389 @@
+arpit@arpit-Predator-PH315-51:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> /*Creating Database*/
+mysql> CREATE DATABASE test;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> USE test;
+Database changed
+mysql> 
+mysql> /*Creating Tables*/
+mysql> CREATE TABLE addresses
+    -> (
+    -> addressID VARCHAR(10),
+    -> HouseNumber int,
+    -> City VARCHAR(15),
+    -> PostCode int(6)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.50 sec)
+
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | YES  |     | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(15) | YES  |     | NULL    |       |
+| PostCode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> CREATE TABLE people
+    -> (
+    -> peopleID VARCHAR(10),
+    -> FirstName VARCHAR(25),
+    -> LastName VARCHAR(25),
+    -> addressID VARCHAR(10)
+    -> );
+Query OK, 0 rows affected (1.16 sec)
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | YES  |     | NULL    |       |
+| FirstName | varchar(25) | YES  |     | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> CREATE TABLE pets
+    -> (
+    -> petID VARCHAR(10),
+    -> Name VARCHAR(25),
+    -> Species VARCHAR(25),
+    -> ownerId VARCHAR(10)
+    -> );
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> DESCRIBE pets;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| petID   | varchar(10) | YES  |     | NULL    |       |
+| Name    | varchar(25) | YES  |     | NULL    |       |
+| Species | varchar(25) | YES  |     | NULL    |       |
+| ownerId | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 18*/
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | YES  |     | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(15) | YES  |     | NULL    |       |
+| PostCode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE addresses ADD PRIMARY KEY (addressID);
+Query OK, 0 rows affected (0.92 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | NO   | PRI | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(15) | YES  |     | NULL    |       |
+| PostCode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 2*/
+mysql> ALTER TABLE addresses DROP PRIMARY KEY;
+Query OK, 0 rows affected (0.90 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | NO   |     | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(15) | YES  |     | NULL    |       |
+| PostCode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> ALTER TABLE addresses Add PRIMARY KEy(addressID);
+Query OK, 0 rows affected (0.79 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | NO   | PRI | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(15) | YES  |     | NULL    |       |
+| PostCode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 3*/
+mysql> ALTER TABLE people ADD PRIMARY KEY (peopleID, FirstName);
+Query OK, 0 rows affected (0.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName | varchar(25) | NO   | PRI | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 4*/
+mysql> ALTER TABLE people ADD CONSTRAINT AddID FOREIGN KEY (addressId) REFERENCES addresses(addressID);
+Query OK, 0 rows affected (1.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName | varchar(25) | NO   | PRI | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 5*/
+mysql> ALTER TABLE people DROP FOREIGN KEY AddID;
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName | varchar(25) | NO   | PRI | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE people DROP KEY AddID;
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName | varchar(25) | NO   | PRI | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 6*/
+mysql> ALTER TABLE pets ADD CONSTRAINT PetSpecie UNIQUE (Species); 
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE pets;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| petID   | varchar(10) | YES  |     | NULL    |       |
+| Name    | varchar(25) | YES  |     | NULL    |       |
+| Species | varchar(25) | YES  | UNI | NULL    |       |
+| ownerId | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 7*/
+mysql> ALTER TABLE pets DROP CONSTRAINT PetSpecie;
+Query OK, 0 rows affected (0.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE pets;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| petID   | varchar(10) | YES  |     | NULL    |       |
+| Name    | varchar(25) | YES  |     | NULL    |       |
+| Species | varchar(25) | YES  |     | NULL    |       |
+| ownerId | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 8*/
+mysql> ALTER TABLE pets RENAME COLUMN Species TO AnimalType;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE pets;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| petID      | varchar(10) | YES  |     | NULL    |       |
+| Name       | varchar(25) | YES  |     | NULL    |       |
+| AnimalType | varchar(25) | YES  |     | NULL    |       |
+| ownerId    | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 9*/
+mysql> ALTER TABLE addresses MODIFY COLUMN City VARCHAR(50);
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | NO   | PRI | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(50) | YES  |     | NULL    |       |
+| PostCode    | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 10*/
+mysql> ALTER TABLE pets ADD PRIMARY KEY (petId);
+Query OK, 0 rows affected (0.88 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE pets;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| petID      | varchar(10) | NO   | PRI | NULL    |       |
+| Name       | varchar(25) | YES  |     | NULL    |       |
+| AnimalType | varchar(25) | YES  |     | NULL    |       |
+| ownerId    | varchar(10) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> 
+mysql> /*Query 11*/
+mysql> ALTER TABLE pets ADD CONSTRAINT PetOwner FOREIGN KEY (ownerId) REFERENCES people(peopleID);
+Query OK, 0 rows affected (1.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE pets;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| petID      | varchar(10) | NO   | PRI | NULL    |       |
+| Name       | varchar(25) | YES  |     | NULL    |       |
+| AnimalType | varchar(25) | YES  |     | NULL    |       |
+| ownerId    | varchar(10) | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 12*/
+mysql> ALTER TABLE people ADD COLUMN email VARCHAR(50);
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName | varchar(25) | NO   | PRI | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  |     | NULL    |       |
+| email     | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 13*/
+mysql> ALTER TABLE people ADD CONSTRAINT Uemail UNIQUE(email);
+Query OK, 0 rows affected (0.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE people;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| peopleID  | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName | varchar(25) | NO   | PRI | NULL    |       |
+| LastName  | varchar(25) | YES  |     | NULL    |       |
+| addressID | varchar(10) | YES  |     | NULL    |       |
+| email     | varchar(50) | YES  | UNI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 14*/
+mysql> ALTER TABLE pets RENAME COLUMN Name to FirstName;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE pets;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| petID      | varchar(10) | NO   | PRI | NULL    |       |
+| FirstName  | varchar(25) | YES  |     | NULL    |       |
+| AnimalType | varchar(25) | YES  |     | NULL    |       |
+| ownerId    | varchar(10) | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 15*/
+mysql> ALTER TABLE addresses MODIFY COLUMN PostCode CHAR(7);
+Query OK, 0 rows affected (1.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE addresses;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| addressID   | varchar(10) | NO   | PRI | NULL    |       |
+| HouseNumber | int         | YES  |     | NULL    |       |
+| City        | varchar(50) | YES  |     | NULL    |       |
+| PostCode    | char(7)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Removing Database*/
+mysql> DROP DATABASE test ; 
+Query OK, 3 rows affected (0.58 sec)
+
+mysql> /*END OF ASSIGNMENT-3*/
+

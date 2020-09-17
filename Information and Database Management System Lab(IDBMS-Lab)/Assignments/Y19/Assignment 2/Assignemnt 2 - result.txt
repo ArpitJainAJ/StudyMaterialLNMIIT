@@ -1,0 +1,183 @@
+arpit@arpit-Predator-PH315-51:~$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE coffee_store;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> USE coffee_store;
+Database changed
+mysql> CREATE TABLE Products
+    -> (
+    ->     productID int,
+    ->     productName VARCHAR(50),
+    ->     productPrice int NOT NULL,
+    ->     PRIMARY KEY (productID)
+    -> );
+Query OK, 0 rows affected (0.82 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_coffee_store |
++------------------------+
+| Products               |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE Customers
+    -> (
+    ->     customerID int,
+    ->     First_name VARCHAR(25),
+    ->     Last_name VARCHAR(25),
+    ->     Gender ENUM('M','F'),
+    ->     Contact_Number int(10),
+    ->     PRIMARY KEY (customerID)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.74 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_coffee_store |
++------------------------+
+| Customers              |
+| Products               |
++------------------------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Orders
+    -> (
+    ->     orderID int,
+    ->     productID int,
+    ->     customerID int,
+    ->     Date_Time DATETIME,
+    ->     PRIMARY KEY (orderID),
+    ->     CONSTRAINT OP FOREIGN KEY (productID) REFERENCES Products(productID), 
+    ->     CONSTRAINT OC FOREIGN KEY (customerID) REFERENCES Customers(customerID) 
+    -> );
+Query OK, 0 rows affected (0.66 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_coffee_store |
++------------------------+
+| Customers              |
+| Orders                 |
+| Products               |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> DESCRIBE Products;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| productID    | int         | NO   | PRI | NULL    |       |
+| productName  | varchar(50) | YES  |     | NULL    |       |
+| productPrice | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> ALTER TABLE Products ADD CoffeeOrigin VARCHAR(25);
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Products;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| productID    | int         | NO   | PRI | NULL    |       |
+| productName  | varchar(50) | YES  |     | NULL    |       |
+| productPrice | int         | NO   |     | NULL    |       |
+| CoffeeOrigin | varchar(25) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Products DROP CoffeeOrigin;
+Query OK, 0 rows affected (0.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Products;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| productID    | int         | NO   | PRI | NULL    |       |
+| productName  | varchar(50) | YES  |     | NULL    |       |
+| productPrice | int         | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Products ADD CoffeeOrigin VARCHAR(25);
+Query OK, 0 rows affected (0.35 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Orders DROP FOREIGN KEY OP ; 
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DROP TABLE Products;
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_coffee_store |
++------------------------+
+| Customers              |
+| Orders                 |
++------------------------+
+2 rows in set (0.01 sec)
+
+mysql> CREATE TABLE Products
+    -> (
+    ->     productID int,
+    ->     productName VARCHAR(50),
+    ->     productPrice int NOT NULL,
+    ->     CoffeeOrigin VARCHAR(25),
+    ->     PRIMARY KEY (productID)
+    -> );
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> ALTER TABLE Orders ADD CONSTRAINT OP FOREIGN KEY (productID) REFERENCES Products(productID);
+Query OK, 0 rows affected (1.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++------------------------+
+| Tables_in_coffee_store |
++------------------------+
+| Customers              |
+| Orders                 |
+| Products               |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO Products (productID, productName, productPrice, CoffeeOrigin) VALUES (1, 'Espresso', 2.50, 'Brazil');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO Products (productID, productName, productPrice, CoffeeOrigin) VALUES (2, 'Cappuccino', 3.50, 'CostaRica');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> SELECT * FROM Products ;
++-----------+-------------+--------------+--------------+
+| productID | productName | productPrice | CoffeeOrigin |
++-----------+-------------+--------------+--------------+
+|         1 | Espresso    |            3 | Brazil       |
+|         2 | Cappuccino  |            4 | CostaRica    |
++-----------+-------------+--------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM Products ;
+Query OK, 2 rows affected (0.08 sec)
+
+mysql> DROP DATABASE coffee_store;
+Query OK, 3 rows affected (0.62 sec)
+
+mysql> 
+mysql> 

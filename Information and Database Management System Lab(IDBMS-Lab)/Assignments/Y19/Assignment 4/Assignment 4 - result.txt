@@ -1,0 +1,255 @@
+arpit@arpit-Predator-PH315-51:~/IDBMS/Lab/Assignment 4$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DROP DATABASE coffee_store;
+ERROR 1008 (HY000): Can't drop database 'coffee_store'; database doesn't exist
+mysql> CREATE DATABASE coffee_store;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> USE coffee_store;
+Database changed
+mysql> 
+mysql> CREATE TABLE products
+    -> (
+    -> productID int AUTO_INCREMENT,
+    -> Name VARCHAR(30),
+    -> Price FLOAT CHECK (Price <= 9.99),
+    -> CoffeeOrigin VARCHAR(30),
+    -> PRIMARY KEY (productID)
+    -> );
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> 
+mysql> CREATE TABLE customers
+    -> (
+    -> customerID int AUTO_INCREMENT,
+    -> First_Name VARCHAR(30),
+    -> Last_Name VARCHAR(30),
+    -> Gender ENUM('M','F'),
+    -> phone_number int(11),/*Here the name is changed from CustomerNumber to phone_number only beacause attached source files (sepcifically Customers.sql here) have used that name and we preferred not to change data files*/
+    -> PRIMARY KEY (customerID)
+    -> );
+Query OK, 0 rows affected, 1 warning (1.37 sec)
+
+mysql> 
+mysql> CREATE TABLE orders
+    -> (
+    -> orderID int AUTO_INCREMENT,
+    -> product_id int,/*Here the name is changed from productID to product_id only beacause attached source files (sepcifically Orders.sql here) have used that name and we preferred not to change data files*/
+    -> customer_id int,/*Here the name is changed from customerID to customer_id only beacause attached source files (sepcifically Orders.sql here) have used that name and we preferred not to change data files*/
+    -> order_time DATETIME,/*Here the name is changed from Date-Time to order_time only beacause attached source files (sepcifically Orders.sql here) have used that name and we preferred not to change data files*/
+    -> PRIMARY KEY (orderID),
+    -> CONSTRAINT OP FOREIGN KEY (product_id) REFERENCES products(productID),
+    -> CONSTRAINT OC FOREIGN KEY (customer_id) REFERENCES customers(customerID)
+    -> );
+Query OK, 0 rows affected (0.71 sec)
+
+mysql> 
+mysql> /*Query 1*/
+mysql> INSERT INTO products VALUES
+    -> (1, 'Espresso', 2.50, 'Brazil'),
+    -> (2, 'Macchiato', 3.00, 'Brazil'),
+    -> (3, 'Cappuccino', 3.50, 'Costa Rica'),
+    -> (4, 'Latte', 3.50, 'Indonesia'),
+    -> (5, 'Americano', 3.00, 'Brazil'),
+    -> (6, 'Flat White', 3.50, 'Indonesia'),
+    -> (7, 'Filter', 3.00, 'India');
+Query OK, 7 rows affected (0.08 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> /*Query 2*/
+mysql> UPDATE products SET CoffeeOrigin='Sri Lanka' WHERE productID=7;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE products SET Price=3.25, CoffeeOrigin='Ethiopia' WHERE Name='Americano';
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE products SET CoffeeOrigin='Colombia' WHERE CoffeeOrigin='Brazil';
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> 
+mysql> /*Query 3*/
+mysql> DELETE FROM products WHERE Name='Flat White';
+Query OK, 1 row affected (0.09 sec)
+
+mysql> INSERT INTO products VALUES (6, 'Flat White', 3.50, 'Indonesia');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> DELETE FROM products WHERE Price=3.50;
+Query OK, 3 rows affected (0.08 sec)
+
+mysql> INSERT INTO products VALUES
+    -> (3, 'Cappuccino', 3.50, 'Costa Rica'),
+    -> (4, 'Latte', 3.50, 'Indonesia'),
+    -> (6, 'Flat White', 3.50, 'Indonesia');
+Query OK, 3 rows affected (0.09 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> /*Query 4*/
+mysql> source Customers.sql;
+Query OK, 24 rows affected (0.08 sec)
+Records: 24  Duplicates: 0  Warnings: 0
+
+mysql> source Orders.sql;
+Query OK, 102 rows affected (0.09 sec)
+Records: 102  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> /*Query 5*/
+mysql> SELECT Last_Name FROM customers;
++-----------+
+| Last_Name |
++-----------+
+| Martin    |
+| Law       |
+| Watkins   |
+| Williams  |
+| Taylor    |
+| Armstrong |
+| Bluth     |
+| Nash      |
+| Bluth     |
+| NULL      |
+| Bluth     |
+| Johnson   |
+| Smith     |
+| Taylor    |
+| Smith     |
+| Bluth     |
+| Bluth     |
+| Bluth     |
+| Evans     |
+| Simmonds  |
+| Smith     |
+| NULL      |
+| West      |
+| Edmonds   |
++-----------+
+24 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 6*/
+mysql> SELECT Last_Name, phone_number FROM customers;
++-----------+--------------+
+| Last_Name | phone_number |
++-----------+--------------+
+| Martin    |   1123147789 |
+| Law       |   1123439899 |
+| Watkins   |   1174592013 |
+| Williams  |         NULL |
+| Taylor    |   1176348290 |
+| Armstrong |   1145787353 |
+| Bluth     |   1980289282 |
+| Nash      |   1176987789 |
+| Bluth     |   1173456782 |
+| NULL      |   1139287883 |
+| Bluth     |   1176923804 |
+| Johnson   |         NULL |
+| Smith     |   1174987221 |
+| Taylor    |         NULL |
+| Smith     |   1176984116 |
+| Bluth     |   1176985498 |
+| Bluth     |   1176984303 |
+| Bluth     |   1198773214 |
+| Evans     |   1174502933 |
+| Simmonds  |   1899284352 |
+| Smith     |   1144473330 |
+| NULL      |         NULL |
+| West      |   1176009822 |
+| Edmonds   |   1966947113 |
++-----------+--------------+
+24 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 7*/
+mysql> SELECT * FROM products WHERE CoffeeOrigin='Colombia';
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         1 | Espresso  |   2.5 | Colombia     |
+|         2 | Macchiato |     3 | Colombia     |
++-----------+-----------+-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 8*/
+mysql> SELECT * FROM products WHERE Price=3.00;
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         2 | Macchiato |     3 | Colombia     |
+|         7 | Filter    |     3 | Sri Lanka    |
++-----------+-----------+-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 9*/
+mysql> SELECT * FROM products WHERE Price=3.00 AND CoffeeOrigin='Colombia';
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         2 | Macchiato |     3 | Colombia     |
++-----------+-----------+-------+--------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 10*/
+mysql> SELECT * FROM products WHERE Price=3.00 OR CoffeeOrigin='Colombia';
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         1 | Espresso  |   2.5 | Colombia     |
+|         2 | Macchiato |     3 | Colombia     |
+|         7 | Filter    |     3 | Sri Lanka    |
++-----------+-----------+-------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 11*/
+mysql> SELECT * FROM products WHERE Price>=3.00;
++-----------+------------+-------+--------------+
+| productID | Name       | Price | CoffeeOrigin |
++-----------+------------+-------+--------------+
+|         2 | Macchiato  |     3 | Colombia     |
+|         3 | Cappuccino |   3.5 | Costa Rica   |
+|         4 | Latte      |   3.5 | Indonesia    |
+|         5 | Americano  |  3.25 | Ethiopia     |
+|         6 | Flat White |   3.5 | Indonesia    |
+|         7 | Filter     |     3 | Sri Lanka    |
++-----------+------------+-------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 12*/
+mysql> SELECT * FROM customers WHERE phone_number IS NULL;
++------------+------------+-----------+--------+--------------+
+| customerID | First_Name | Last_Name | Gender | phone_number |
++------------+------------+-----------+--------+--------------+
+|          4 | Daniel     | Williams  | M      |         NULL |
+|         12 | Harry      | Johnson   | M      |         NULL |
+|         14 | John       | Taylor    | M      |         NULL |
+|         22 | Jennifer   | NULL      | F      |         NULL |
++------------+------------+-----------+--------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> DROP DATABASE coffee_store;
+Query OK, 3 rows affected (0.66 sec)
+
+mysql> /*END of Assignment 4*/
+
