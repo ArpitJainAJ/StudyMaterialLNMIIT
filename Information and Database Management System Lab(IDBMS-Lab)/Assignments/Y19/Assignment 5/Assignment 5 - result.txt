@@ -1,0 +1,1098 @@
+arpit@arpit-Predator-PH315-51:~/IDBMS/Lab/Assignment 5$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> DROP DATABASE coffee_store;
+ERROR 1008 (HY000): Can't drop database 'coffee_store'; database doesn't exist
+mysql> CREATE DATABASE coffee_store;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> USE coffee_store;
+5Database changed
+mysql> 
+*mysql> CREATE TABLE products
+e, L    -> (
+    -> productID INT AUTO_INCREMENT,
+    -> Name VARCHAR(30),
+    -> Price FLOAT CHECK (Price <= 9.99),
+    -> CoffeeOrigin VARCHAR(30),
+    -> PRIMARY KEY (productID)
+    -> );
+Query OK, 0 rows affected (0.52 sec)
+
+mysql> 
+ mysql> CREATE TABLE customers
+    -> (
+    -> customerID INT AUTO_INCREMENT,
+    -> First_Name VARCHAR(30),
+    -> Last_Name VARCHAR(30),
+    -> Gender ENUM('M','F'),
+    -> phone_number INT(11),/*Here the name is changed FROM CustomerNumber to phone_number only beacause attached source files (sepcifically Customers.sql here) have used that name AND we preferred NOT to change data files*/
+    -> PRIMARY KEY (customerID)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.89 sec)
+
+mysql> 
+mysql> CREATE TABLE orders
+    -> (
+T     -> orderID INT AUTO_INCREMENT,
+e    -> product_id INT,/*Here the name is changed FROM productID to product_id only beacause attached source files (sepcifically Orders.sql here) have used that name AND we preferred NOT to change data files*/
+    -> customer_id INT,/*Here the name is changed FROM customerID to customer_id only beacause attached source files (sepcifically Orders.sql here) have used that name AND we preferred NOT to change data files*/
+    -> order_time DATETIME,/*Here the name is changed FROM Date-Time to order_time only beacause attached source files (sepcifically Orders.sql here) have used that name AND we preferred NOT to change data files*/
+    -> PRIMARY KEY (orderID),
+    -> CONSTRAINT OP FOREIGN KEY (product_id) REFERENCES products(productID),
+    -> CONSTRAINT OC FOREIGN KEY (customer_id) REFERENCES customers(customerID)
+    -> );
+Query OK, 0 rows affected (0.97 sec)
+
+mysql> 
+umysql> /*ASsignment 4 Data Fillups*/
+mysql> /*Query 1*/
+mysql> INSERT INTO products VALUES
+    -> (1, 'Espresso', 2.50, 'Brazil'),
+    -> (2, 'Macchiato', 3.00, 'Brazil'),
+    -> (3, 'CappuccINo', 3.50, 'Costa Rica'),
+    -> (4, 'Latte', 3.50, 'INdonesia'),
+    -> (5, 'Americano', 3.00, 'Brazil'),
+    -> (6, 'Flat White', 3.50, 'INdonesia'),
+    -> (7, 'Filter', 3.00, 'INdia');
+Query OK, 7 rows affected (0.08 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> 
+umysql> /*Query 2*/
+mysql> UPDATE products SET CoffeeOrigin='Sri Lanka' WHERE productID=7;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE products SET Price=3.25, CoffeeOrigin='Ethiopia' WHERE Name='Americano';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE products SET CoffeeOrigin='Colombia' WHERE CoffeeOrigin='Brazil';
+sQuery OK, 2 rows affected (0.09 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> 
+mysql> /*Query 3*/
+mysql> DELETE FROM products WHERE Name='Flat White';
+Query OK, 1 row affected (0.08 sec)
+
+mysql> INSERT INTO products VALUES (6, 'Flat White', 3.50, 'INdonesia');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> DELETE FROM products WHERE Price=3.50;
+Query OK, 3 rows affected (0.10 sec)
+
+mysql> INSERT INTO products VALUES
+    -> (3, 'CappuccINo', 3.50, 'Costa Rica'),
+    -> (4, 'Latte', 3.50, 'INdonesia'),
+    -> (6, 'Flat White', 3.50, 'INdonesia');
+Query OK, 3 rows affected (0.09 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> /*Query 4*/
+mysql> source Customers.sql;
+Query OK, 24 rows affected (0.05 sec)
+Records: 24  Duplicates: 0  Warnings: 0
+
+mysql> source Orders.sql;
+Query OK, 102 rows affected (0.07 sec)
+Records: 102  Duplicates: 0  Warnings: 0
+
+mysql> 
+=mysql> /*Query 5*/
+cumysql> SELECT Last_Name FROM customers;
++-----------+
+| Last_Name |
++-----------+
+| Martin    |
+| Law       |
+| Watkins   |
+| Williams  |
+| Taylor    |
+| Armstrong |
+| Bluth     |
+| Nash      |
+| Bluth     |
+| NULL      |
+| Bluth     |
+| Johnson   |
+| Smith     |
+| Taylor    |
+| Smith     |
+| Bluth     |
+| Bluth     |
+| Bluth     |
+| Evans     |
+| Simmonds  |
+| Smith     |
+| NULL      |
+| West      |
+| Edmonds   |
++-----------+
+24 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 6*/
+mysql> SELECT Last_Name, phone_number FROM customers;
++-----------+--------------+
+| Last_Name | phone_number |
++-----------+--------------+
+| Martin    |   1123147789 |
+| Law       |   1123439899 |
+| Watkins   |   1174592013 |
+| Williams  |         NULL |
+| Taylor    |   1176348290 |
+| Armstrong |   1145787353 |
+| Bluth     |   1980289282 |
+| Nash      |   1176987789 |
+| Bluth     |   1173456782 |
+| NULL      |   1139287883 |
+| Bluth     |   1176923804 |
+| Johnson   |         NULL |
+| Smith     |   1174987221 |
+| Taylor    |         NULL |
+| Smith     |   1176984116 |
+| Bluth     |   1176985498 |
+| Bluth     |   1176984303 |
+| Bluth     |   1198773214 |
+| Evans     |   1174502933 |
+| Simmonds  |   1899284352 |
+| Smith     |   1144473330 |
+| NULL      |         NULL |
+| West      |   1176009822 |
+| Edmonds   |   1966947113 |
++-----------+--------------+
+24 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 7*/
+mysql> SELECT * FROM products WHERE CoffeeOrigin='Colombia';
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         1 | Espresso  |   2.5 | Colombia     |
+|         2 | Macchiato |     3 | Colombia     |
++-----------+-----------+-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 8*/
+mysql> SELECT * FROM products WHERE Price=3.00;
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         2 | Macchiato |     3 | Colombia     |
+|         7 | Filter    |     3 | Sri Lanka    |
++-----------+-----------+-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 9*/
+mysql> SELECT * FROM products WHERE Price=3.00 AND CoffeeOrigin='Colombia';
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         2 | Macchiato |     3 | Colombia     |
++-----------+-----------+-------+--------------+
+1 row in set (0.00 sec)
+
+mysql> 
+Rmysql> /*Query 10*/
+mysql> SELECT * FROM products WHERE Price=3.00 OR CoffeeOrigin='Colombia';
++-----------+-----------+-------+--------------+
+| productID | Name      | Price | CoffeeOrigin |
++-----------+-----------+-------+--------------+
+|         1 | Espresso  |   2.5 | Colombia     |
+|         2 | Macchiato |     3 | Colombia     |
+|         7 | Filter    |     3 | Sri Lanka    |
++-----------+-----------+-------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 11*/
+mysql> SELECT * FROM products WHERE Price>=3.00;
++-----------+------------+-------+--------------+
+| productID | Name       | Price | CoffeeOrigin |
++-----------+------------+-------+--------------+
+|         2 | Macchiato  |     3 | Colombia     |
+|         3 | CappuccINo |   3.5 | Costa Rica   |
+|         4 | Latte      |   3.5 | INdonesia    |
+|         5 | Americano  |  3.25 | Ethiopia     |
+|         6 | Flat White |   3.5 | INdonesia    |
+|         7 | Filter     |     3 | Sri Lanka    |
++-----------+------------+-------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 12*/
+mysql> SELECT * FROM customers WHERE phone_number IS NULL;
++------------+------------+-----------+--------+--------------+
+| customerID | First_Name | Last_Name | Gender | phone_number |
++------------+------------+-----------+--------+--------------+
+|          4 | Daniel     | Williams  | M      |         NULL |
+|         12 | Harry      | Johnson   | M      |         NULL |
+|         14 | John       | Taylor    | M      |         NULL |
+|         22 | Jennifer   | NULL      | F      |         NULL |
++------------+------------+-----------+--------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*END of ASsignment 4*/
+mysql> /*Start of ASsignment 5*/
+mysql> /*Query 1*/
+mysql> SELECT First_Name, Last_Name FROM customers WHERE Last_Name IN('Taylor','Bluth','Armstrong');
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| Sarah      | Taylor    |
+| Katie      | Armstrong |
+| Michael    | Bluth     |
+| Buster     | Bluth     |
+| Lindsay    | Bluth     |
+| John       | Taylor    |
+| Gob        | Bluth     |
+| George     | Bluth     |
+| Lucille    | Bluth     |
++------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 2*/
+mysql> SELECT First_Name, Last_Name FROM customers WHERE Last_Name NOT IN('Katie','George','John');
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| Chris      | Martin    |
+| Emma       | Law       |
+| Mark       | Watkins   |
+| Daniel     | Williams  |
+| Sarah      | Taylor    |
+| Katie      | Armstrong |
+| Michael    | Bluth     |
+| Kat        | Nash      |
+| Buster     | Bluth     |
+| Lindsay    | Bluth     |
+| Harry      | Johnson   |
+| John       | Smith     |
+| John       | Taylor    |
+| Emma       | Smith     |
+| Gob        | Bluth     |
+| George     | Bluth     |
+| Lucille    | Bluth     |
+| George     | Evans     |
+| Emily      | Simmonds  |
+| John       | Smith     |
+| Toby       | West      |
+| Paul       | Edmonds   |
++------------+-----------+
+22 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 3*/
+mysql> SELECT product_id, customer_id, order_time FROM orders WHERE order_time BETWEEN '2017-01-01' AND '2017-01-07';
++------------+-------------+---------------------+
+| product_id | customer_id | order_time          |
++------------+-------------+---------------------+
+|          1 |           1 | 2017-01-01 08:02:11 |
+|          1 |           2 | 2017-01-01 08:05:16 |
+|          5 |          12 | 2017-01-01 08:44:34 |
+|          3 |           4 | 2017-01-01 09:20:02 |
+|          1 |           9 | 2017-01-01 11:51:56 |
+|          6 |          22 | 2017-01-01 13:07:10 |
+|          1 |           1 | 2017-01-02 08:03:41 |
+|          3 |          10 | 2017-01-02 09:15:22 |
+|          2 |           2 | 2017-01-02 10:10:10 |
+|          3 |          13 | 2017-01-02 12:07:23 |
+|          1 |           1 | 2017-01-03 08:13:50 |
+|          7 |          16 | 2017-01-03 08:47:09 |
+|          6 |          21 | 2017-01-03 09:12:11 |
+|          5 |          22 | 2017-01-03 11:05:33 |
+|          4 |           3 | 2017-01-03 11:08:55 |
+|          3 |          11 | 2017-01-03 12:02:14 |
+|          2 |          23 | 2017-01-03 13:41:22 |
+|          1 |           1 | 2017-01-04 08:08:56 |
+|          3 |          10 | 2017-01-04 11:23:43 |
+|          4 |          12 | 2017-01-05 08:30:09 |
+|          7 |           1 | 2017-01-06 09:02:47 |
+|          3 |          18 | 2017-01-06 13:23:34 |
++------------+-------------+---------------------+
+22 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 4*/
+mysql> SELECT product_id, customer_id, order_time FROM orders WHERE customer_id BETWEEN 5 AND 10;
++------------+-------------+---------------------+
+| product_id | customer_id | order_time          |
++------------+-------------+---------------------+
+|          4 |           5 | 2017-01-08 08:54:11 |
+|          3 |           5 | 2017-02-15 08:09:10 |
+|          3 |           5 | 2017-02-20 09:51:29 |
+|          6 |           6 | 2017-01-30 10:07:13 |
+|          4 |           6 | 2017-02-20 10:43:39 |
+|          1 |           7 | 2017-01-16 10:02:11 |
+|          6 |           7 | 2017-02-15 09:05:12 |
+|          4 |           8 | 2017-01-12 13:20:13 |
+|          3 |           8 | 2017-02-12 08:08:08 |
+|          1 |           8 | 2017-02-15 09:27:50 |
+|          1 |           9 | 2017-01-01 11:51:56 |
+|          3 |           9 | 2017-01-19 09:00:19 |
+|          2 |           9 | 2017-02-16 08:51:12 |
+|          3 |          10 | 2017-01-02 09:15:22 |
+|          3 |          10 | 2017-01-04 11:23:43 |
+|          2 |          10 | 2017-01-17 09:50:05 |
+|          3 |          10 | 2017-01-28 08:03:21 |
+|          7 |          10 | 2017-02-02 09:43:17 |
+|          3 |          10 | 2017-02-16 13:07:46 |
+|          5 |          10 | 2017-02-17 11:41:17 |
++------------+-------------+---------------------+
+20 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 5*/
+mysql> SELECT First_Name FROM customers WHERE Last_Name REGEXP '^[A-L]';
++------------+
+| First_Name |
++------------+
+| Emma       |
+| Katie      |
+| Michael    |
+| Buster     |
+| Lindsay    |
+| Harry      |
+| Gob        |
+| George     |
+| Lucille    |
+| George     |
+| Paul       |
++------------+
+11 rows in set (0.01 sec)
+
+mysql> 
+mysql> /*Query 6*/
+mysql> SELECT First_Name, Last_Name FROM customers WHERE Last_Name LIKE 'W%';
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| Mark       | Watkins   |
+| Daniel     | Williams  |
+| Toby       | West      |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 7*/
+mysql> SELECT First_Name, Last_Name FROM customers WHERE Last_Name LIKE '%o';
+Empty set (0.00 sec)
+
+mysql> 
+mysql> /*Query 8*/
+mysql> SELECT First_Name, Last_Name FROM customers WHERE First_Name LIKE '%o%';
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| John       | Smith     |
+| John       | Taylor    |
+| Gob        | Bluth     |
+| George     | Bluth     |
+| George     | Evans     |
+| John       | Smith     |
+| Toby       | West      |
++------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 9*/
+mysql> SELECT Name FROM products WHERE Price LIKE '3%';
++------------+
+| Name       |
++------------+
+| Macchiato  |
+| CappuccINo |
+| Latte      |
+| Americano  |
+| Flat White |
+| Filter     |
++------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 10*/
+mysql> SELECT Name FROM products ORDER BY Price;
++------------+
+| Name       |
++------------+
+| Espresso   |
+| Macchiato  |
+| Filter     |
+| Americano  |
+| CappuccINo |
+| Latte      |
+| Flat White |
++------------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 11*/
+mysql> SELECT First_Name, Last_Name FROM customers ORDER BY First_Name ASC;
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| Buster     | Bluth     |
+| Charlie    | NULL      |
+| Chris      | Martin    |
+| Daniel     | Williams  |
+| Emily      | Simmonds  |
+| Emma       | Law       |
+| Emma       | Smith     |
+| George     | Evans     |
+| George     | Bluth     |
+| Gob        | Bluth     |
+| Harry      | Johnson   |
+| Jennifer   | NULL      |
+| John       | Smith     |
+| John       | Smith     |
+| John       | Taylor    |
+| Kat        | Nash      |
+| Katie      | Armstrong |
+| Lindsay    | Bluth     |
+| Lucille    | Bluth     |
+| Mark       | Watkins   |
+| Michael    | Bluth     |
+| Paul       | Edmonds   |
+| Sarah      | Taylor    |
+| Toby       | West      |
++------------+-----------+
+24 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 12*/
+mysql> SELECT orderID FROM orders WHERE customer_id=1 ORDER BY order_time DESC;
++---------+
+| orderID |
++---------+
+|     102 |
+|      91 |
+|      90 |
+|      87 |
+|      72 |
+|      64 |
+|      56 |
+|      48 |
+|      45 |
+|      35 |
+|      31 |
+|      26 |
+|      21 |
+|      18 |
+|      11 |
+|       7 |
+|       1 |
++---------+
+17 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 13*/
+mysql> SELECT DISTINCT CoffeeOrigin FROM products;
++--------------+
+| CoffeeOrigin |
++--------------+
+| Colombia     |
+| Costa Rica   |
+| INdonesia    |
+| Ethiopia     |
+| Sri Lanka    |
++--------------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 14*/
+mysql> SELECT DISTINCT customer_id FROM orders WHERE order_time BETWEEN '2017-02-01' AND '2017-02-28';
++-------------+
+| customer_id |
++-------------+
+|           1 |
+|           2 |
+|           3 |
+|           4 |
+|           5 |
+|           6 |
+|           7 |
+|           8 |
+|           9 |
+|          10 |
+|          11 |
+|          12 |
+|          13 |
+|          14 |
+|          15 |
+|          17 |
+|          18 |
+|          19 |
+|          20 |
+|          21 |
+|          22 |
+|          23 |
+|          24 |
++-------------+
+23 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 15*/
+mysql> SELECT First_Name, Last_Name FROM customers WHERE customerID LIKE '6%' LIMIT 5;
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| Katie      | Armstrong |
++------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> /*Querty 16*/
+mysql> SELECT First_Name, Last_Name FROM customers ORDER BY Last_Name LIMIT 10;
++------------+-----------+
+| First_Name | Last_Name |
++------------+-----------+
+| Jennifer   | NULL      |
+| Charlie    | NULL      |
+| Katie      | Armstrong |
+| George     | Bluth     |
+| Gob        | Bluth     |
+| Michael    | Bluth     |
+| Lucille    | Bluth     |
+| Buster     | Bluth     |
+| Lindsay    | Bluth     |
+| Paul       | Edmonds   |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 17*/
+mysql> SELECT Name AS 'Product Name', Price, CoffeeOrigin AS Country FROM products;
++--------------+-------+------------+
+| Product Name | Price | Country    |
++--------------+-------+------------+
+| Espresso     |   2.5 | Colombia   |
+| Macchiato    |     3 | Colombia   |
+| CappuccINo   |   3.5 | Costa Rica |
+| Latte        |   3.5 | INdonesia  |
+| Americano    |  3.25 | Ethiopia   |
+| Flat White   |   3.5 | INdonesia  |
+| Filter       |     3 | Sri Lanka  |
++--------------+-------+------------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 18*/
+mysql> SELECT products.Name, orders.order_time FROM orders RIGHT JOIN products on orders.product_id=products.productID;
++------------+---------------------+
+| Name       | order_time          |
++------------+---------------------+
+| Espresso   | 2017-01-01 08:02:11 |
+| Espresso   | 2017-01-01 08:05:16 |
+| Espresso   | 2017-01-01 11:51:56 |
+| Espresso   | 2017-01-02 08:03:41 |
+| Espresso   | 2017-01-03 08:13:50 |
+| Espresso   | 2017-01-04 08:08:56 |
+| Espresso   | 2017-01-09 08:03:11 |
+| Espresso   | 2017-01-14 08:27:10 |
+| Espresso   | 2017-01-16 10:02:11 |
+| Espresso   | 2017-01-18 08:22:55 |
+| Espresso   | 2017-01-25 08:05:13 |
+| Espresso   | 2017-01-28 08:33:28 |
+| Espresso   | 2017-01-28 11:55:33 |
+| Espresso   | 2017-01-29 09:10:17 |
+| Espresso   | 2017-02-01 08:10:14 |
+| Espresso   | 2017-02-07 08:45:10 |
+| Espresso   | 2017-02-11 08:00:38 |
+| Espresso   | 2017-02-13 08:37:45 |
+| Espresso   | 2017-02-15 09:27:50 |
+| Espresso   | 2017-02-19 08:12:31 |
+| Espresso   | 2017-02-20 09:50:17 |
+| Espresso   | 2017-02-21 10:30:11 |
+| Espresso   | 2017-02-28 08:59:22 |
+| Macchiato  | 2017-01-02 10:10:10 |
+| Macchiato  | 2017-01-03 13:41:22 |
+| Macchiato  | 2017-01-07 09:12:39 |
+| Macchiato  | 2017-01-07 11:24:15 |
+| Macchiato  | 2017-01-17 09:50:05 |
+| Macchiato  | 2017-01-24 08:01:27 |
+| Macchiato  | 2017-02-02 10:02:11 |
+| Macchiato  | 2017-02-07 08:27:26 |
+| Macchiato  | 2017-02-16 08:51:12 |
+| Macchiato  | 2017-02-22 13:35:16 |
+| Macchiato  | 2017-02-25 08:03:12 |
+| CappuccINo | 2017-01-01 09:20:02 |
+| CappuccINo | 2017-01-02 09:15:22 |
+| CappuccINo | 2017-01-02 12:07:23 |
+| CappuccINo | 2017-01-03 12:02:14 |
+| CappuccINo | 2017-01-04 11:23:43 |
+| CappuccINo | 2017-01-06 13:23:34 |
+| CappuccINo | 2017-01-10 11:02:11 |
+| CappuccINo | 2017-01-19 09:00:19 |
+| CappuccINo | 2017-01-21 09:45:50 |
+| CappuccINo | 2017-01-27 10:13:09 |
+| CappuccINo | 2017-01-28 08:03:21 |
+| CappuccINo | 2017-02-06 08:15:10 |
+| CappuccINo | 2017-02-09 08:58:18 |
+| CappuccINo | 2017-02-10 09:12:40 |
+| CappuccINo | 2017-02-12 08:08:08 |
+| CappuccINo | 2017-02-15 08:09:10 |
+| CappuccINo | 2017-02-16 13:07:46 |
+| CappuccINo | 2017-02-20 09:51:29 |
+| CappuccINo | 2017-02-21 08:32:17 |
+| CappuccINo | 2017-02-21 11:08:45 |
+| Latte      | 2017-01-03 11:08:55 |
+| Latte      | 2017-01-05 08:30:09 |
+| Latte      | 2017-01-08 08:54:11 |
+| Latte      | 2017-01-11 08:39:11 |
+| Latte      | 2017-01-12 13:20:13 |
+| Latte      | 2017-01-15 08:30:56 |
+| Latte      | 2017-01-27 11:02:40 |
+| Latte      | 2017-02-04 09:31:01 |
+| Latte      | 2017-02-14 08:22:43 |
+| Latte      | 2017-02-17 08:03:55 |
+| Latte      | 2017-02-17 09:12:11 |
+| Latte      | 2017-02-20 10:43:39 |
+| Latte      | 2017-02-22 11:46:32 |
+| Latte      | 2017-02-24 08:32:03 |
+| Americano  | 2017-01-01 08:44:34 |
+| Americano  | 2017-01-03 11:05:33 |
+| Americano  | 2017-01-22 10:10:34 |
+| Americano  | 2017-02-05 09:07:10 |
+| Americano  | 2017-02-10 11:05:34 |
+| Americano  | 2017-02-13 12:34:56 |
+| Americano  | 2017-02-14 09:12:56 |
+| Americano  | 2017-02-17 11:41:17 |
+| Americano  | 2017-02-26 11:47:34 |
+| Flat White | 2017-01-01 13:07:10 |
+| Flat White | 2017-01-03 09:12:11 |
+| Flat White | 2017-01-10 10:34:12 |
+| Flat White | 2017-01-20 08:02:21 |
+| Flat White | 2017-01-23 08:32:19 |
+| Flat White | 2017-01-23 08:45:12 |
+| Flat White | 2017-01-23 12:45:30 |
+| Flat White | 2017-01-26 10:49:10 |
+| Flat White | 2017-01-30 10:07:13 |
+| Flat White | 2017-02-08 10:37:10 |
+| Flat White | 2017-02-15 09:05:12 |
+| Flat White | 2017-02-17 13:05:56 |
+| Flat White | 2017-02-23 08:34:48 |
+| Flat White | 2017-02-27 12:12:34 |
+| Filter     | 2017-01-03 08:47:09 |
+| Filter     | 2017-01-06 09:02:47 |
+| Filter     | 2017-01-19 11:33:00 |
+| Filter     | 2017-01-27 09:23:57 |
+| Filter     | 2017-01-27 10:08:16 |
+| Filter     | 2017-02-02 09:43:17 |
+| Filter     | 2017-02-03 08:33:49 |
+| Filter     | 2017-02-12 09:22:10 |
+| Filter     | 2017-02-18 08:33:27 |
+| Filter     | 2017-02-25 09:34:23 |
+| Filter     | 2017-02-25 11:32:54 |
++------------+---------------------+
+102 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> /*Query 19*/
+mysql> SELECT products.Name, products.price, orders.order_time FROM products RIGHT JOIN orders on products.Name='Americano' ORDER BY order_time DESC;
++-----------+-------+---------------------+
+| Name      | price | order_time          |
++-----------+-------+---------------------+
+| Americano |  3.25 | 2017-02-28 08:59:22 |
+| Americano |  3.25 | 2017-02-27 12:12:34 |
+| Americano |  3.25 | 2017-02-26 11:47:34 |
+| Americano |  3.25 | 2017-02-25 11:32:54 |
+| Americano |  3.25 | 2017-02-25 09:34:23 |
+| Americano |  3.25 | 2017-02-25 08:03:12 |
+| Americano |  3.25 | 2017-02-24 08:32:03 |
+| Americano |  3.25 | 2017-02-23 08:34:48 |
+| Americano |  3.25 | 2017-02-22 13:35:16 |
+| Americano |  3.25 | 2017-02-22 11:46:32 |
+| Americano |  3.25 | 2017-02-21 11:08:45 |
+| Americano |  3.25 | 2017-02-21 10:30:11 |
+| Americano |  3.25 | 2017-02-21 08:32:17 |
+| Americano |  3.25 | 2017-02-20 10:43:39 |
+| Americano |  3.25 | 2017-02-20 09:51:29 |
+| Americano |  3.25 | 2017-02-20 09:50:17 |
+| Americano |  3.25 | 2017-02-19 08:12:31 |
+| Americano |  3.25 | 2017-02-18 08:33:27 |
+| Americano |  3.25 | 2017-02-17 13:05:56 |
+| Americano |  3.25 | 2017-02-17 11:41:17 |
+| Americano |  3.25 | 2017-02-17 09:12:11 |
+| Americano |  3.25 | 2017-02-17 08:03:55 |
+| Americano |  3.25 | 2017-02-16 13:07:46 |
+| Americano |  3.25 | 2017-02-16 08:51:12 |
+| Americano |  3.25 | 2017-02-15 09:27:50 |
+| Americano |  3.25 | 2017-02-15 09:05:12 |
+| Americano |  3.25 | 2017-02-15 08:09:10 |
+| Americano |  3.25 | 2017-02-14 09:12:56 |
+| Americano |  3.25 | 2017-02-14 08:22:43 |
+| Americano |  3.25 | 2017-02-13 12:34:56 |
+| Americano |  3.25 | 2017-02-13 08:37:45 |
+| Americano |  3.25 | 2017-02-12 09:22:10 |
+| Americano |  3.25 | 2017-02-12 08:08:08 |
+| Americano |  3.25 | 2017-02-11 08:00:38 |
+| Americano |  3.25 | 2017-02-10 11:05:34 |
+| Americano |  3.25 | 2017-02-10 09:12:40 |
+| Americano |  3.25 | 2017-02-09 08:58:18 |
+| Americano |  3.25 | 2017-02-08 10:37:10 |
+| Americano |  3.25 | 2017-02-07 08:45:10 |
+| Americano |  3.25 | 2017-02-07 08:27:26 |
+| Americano |  3.25 | 2017-02-06 08:15:10 |
+| Americano |  3.25 | 2017-02-05 09:07:10 |
+| Americano |  3.25 | 2017-02-04 09:31:01 |
+| Americano |  3.25 | 2017-02-03 08:33:49 |
+| Americano |  3.25 | 2017-02-02 10:02:11 |
+| Americano |  3.25 | 2017-02-02 09:43:17 |
+| Americano |  3.25 | 2017-02-01 08:10:14 |
+| Americano |  3.25 | 2017-01-30 10:07:13 |
+| Americano |  3.25 | 2017-01-29 09:10:17 |
+| Americano |  3.25 | 2017-01-28 11:55:33 |
+| Americano |  3.25 | 2017-01-28 08:33:28 |
+| Americano |  3.25 | 2017-01-28 08:03:21 |
+| Americano |  3.25 | 2017-01-27 11:02:40 |
+| Americano |  3.25 | 2017-01-27 10:13:09 |
+| Americano |  3.25 | 2017-01-27 10:08:16 |
+| Americano |  3.25 | 2017-01-27 09:23:57 |
+| Americano |  3.25 | 2017-01-26 10:49:10 |
+| Americano |  3.25 | 2017-01-25 08:05:13 |
+| Americano |  3.25 | 2017-01-24 08:01:27 |
+| Americano |  3.25 | 2017-01-23 12:45:30 |
+| Americano |  3.25 | 2017-01-23 08:45:12 |
+| Americano |  3.25 | 2017-01-23 08:32:19 |
+| Americano |  3.25 | 2017-01-22 10:10:34 |
+| Americano |  3.25 | 2017-01-21 09:45:50 |
+| Americano |  3.25 | 2017-01-20 08:02:21 |
+| Americano |  3.25 | 2017-01-19 11:33:00 |
+| Americano |  3.25 | 2017-01-19 09:00:19 |
+| Americano |  3.25 | 2017-01-18 08:22:55 |
+| Americano |  3.25 | 2017-01-17 09:50:05 |
+| Americano |  3.25 | 2017-01-16 10:02:11 |
+| Americano |  3.25 | 2017-01-15 08:30:56 |
+| Americano |  3.25 | 2017-01-14 08:27:10 |
+| Americano |  3.25 | 2017-01-12 13:20:13 |
+| Americano |  3.25 | 2017-01-11 08:39:11 |
+| Americano |  3.25 | 2017-01-10 11:02:11 |
+| Americano |  3.25 | 2017-01-10 10:34:12 |
+| Americano |  3.25 | 2017-01-09 08:03:11 |
+| Americano |  3.25 | 2017-01-08 08:54:11 |
+| Americano |  3.25 | 2017-01-07 11:24:15 |
+| Americano |  3.25 | 2017-01-07 09:12:39 |
+| Americano |  3.25 | 2017-01-06 13:23:34 |
+| Americano |  3.25 | 2017-01-06 09:02:47 |
+| Americano |  3.25 | 2017-01-05 08:30:09 |
+| Americano |  3.25 | 2017-01-04 11:23:43 |
+| Americano |  3.25 | 2017-01-04 08:08:56 |
+| Americano |  3.25 | 2017-01-03 13:41:22 |
+| Americano |  3.25 | 2017-01-03 12:02:14 |
+| Americano |  3.25 | 2017-01-03 11:08:55 |
+| Americano |  3.25 | 2017-01-03 11:05:33 |
+| Americano |  3.25 | 2017-01-03 09:12:11 |
+| Americano |  3.25 | 2017-01-03 08:47:09 |
+| Americano |  3.25 | 2017-01-03 08:13:50 |
+| Americano |  3.25 | 2017-01-02 12:07:23 |
+| Americano |  3.25 | 2017-01-02 10:10:10 |
+| Americano |  3.25 | 2017-01-02 09:15:22 |
+| Americano |  3.25 | 2017-01-02 08:03:41 |
+| Americano |  3.25 | 2017-01-01 13:07:10 |
+| Americano |  3.25 | 2017-01-01 11:51:56 |
+| Americano |  3.25 | 2017-01-01 09:20:02 |
+| Americano |  3.25 | 2017-01-01 08:44:34 |
+| Americano |  3.25 | 2017-01-01 08:05:16 |
+| Americano |  3.25 | 2017-01-01 08:02:11 |
++-----------+-------+---------------------+
+102 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 20*/
+mysql> SELECT customers.First_Name, customers.phone_number FROM orders RIGHT JOIN customers ON orders.customer_id=customers.customerID RIGHT JOIN products ON orders.product_id=products.productID WHERE products.Name='Espresso';
++------------+--------------+
+| First_Name | phone_number |
++------------+--------------+
+| Chris      |   1123147789 |
+| Emma       |   1123439899 |
+| Buster     |   1173456782 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Michael    |   1980289282 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Emma       |   1123439899 |
+| Harry      |         NULL |
+| John       |   1174987221 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Emma       |   1123439899 |
+| Chris      |   1123147789 |
+| Kat        |   1176987789 |
+| George     |   1176984303 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
+| Chris      |   1123147789 |
++------------+--------------+
+23 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 21*/
+mysql> SELECT orders.orderID, customers.First_Name, customers.Last_Name, customers.phone_number, orders.order_time FROM orders RIGHT JOIN customers on orders.customer_id=customers.customerID ORDER BY orders.order_time DESC LIMIT 10;
++---------+------------+-----------+--------------+---------------------+
+| orderID | First_Name | Last_Name | phone_number | order_time          |
++---------+------------+-----------+--------------+---------------------+
+|     102 | Chris      | Martin    |   1123147789 | 2017-02-28 08:59:22 |
+|     101 | Daniel     | Williams  |         NULL | 2017-02-27 12:12:34 |
+|     100 | Harry      | Johnson   |         NULL | 2017-02-26 11:47:34 |
+|      99 | Toby       | West      |   1176009822 | 2017-02-25 11:32:54 |
+|      98 | George     | Bluth     |   1176984303 | 2017-02-25 09:34:23 |
+|      97 | John       | Smith     |   1174987221 | 2017-02-25 08:03:12 |
+|      96 | Paul       | Edmonds   |   1966947113 | 2017-02-24 08:32:03 |
+|      95 | John       | Smith     |   1174987221 | 2017-02-23 08:34:48 |
+|      94 | Emma       | Smith     |   1176984116 | 2017-02-22 13:35:16 |
+|      93 | Mark       | Watkins   |   1174592013 | 2017-02-22 11:46:32 |
++---------+------------+-----------+--------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 22*/
+mysql> UPDATE orders set customer_id=null WHERE orderID=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> SELECT orders.orderID, customers.First_Name, customers.Last_Name, customers.phone_number, orders.order_time FROM orders LEFT JOIN customers on orders.customer_id=customers.customerID ORDER BY orders.order_time ASC LIMIT 10;
++---------+------------+-----------+--------------+---------------------+
+| orderID | First_Name | Last_Name | phone_number | order_time          |
++---------+------------+-----------+--------------+---------------------+
+|       1 | NULL       | NULL      |         NULL | 2017-01-01 08:02:11 |
+|       2 | Emma       | Law       |   1123439899 | 2017-01-01 08:05:16 |
+|       3 | Harry      | Johnson   |         NULL | 2017-01-01 08:44:34 |
+|       4 | Daniel     | Williams  |         NULL | 2017-01-01 09:20:02 |
+|       5 | Buster     | Bluth     |   1173456782 | 2017-01-01 11:51:56 |
+|       6 | Jennifer   | NULL      |         NULL | 2017-01-01 13:07:10 |
+|       7 | Chris      | Martin    |   1123147789 | 2017-01-02 08:03:41 |
+|       8 | Charlie    | NULL      |   1139287883 | 2017-01-02 09:15:22 |
+|       9 | Emma       | Law       |   1123439899 | 2017-01-02 10:10:10 |
+|      10 | John       | Smith     |   1174987221 | 2017-01-02 12:07:23 |
++---------+------------+-----------+--------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 23*/
+mysql> SELECT orders.orderID, customers.First_Name, customers.Last_Name, customers.phone_number, orders.order_time FROM customers LEFT JOIN orders on customers.customerID=orders.customer_id ORDER BY orders.order_time LIMIT 10;
++---------+------------+-----------+--------------+---------------------+
+| orderID | First_Name | Last_Name | phone_number | order_time          |
++---------+------------+-----------+--------------+---------------------+
+|       2 | Emma       | Law       |   1123439899 | 2017-01-01 08:05:16 |
+|       3 | Harry      | Johnson   |         NULL | 2017-01-01 08:44:34 |
+|       4 | Daniel     | Williams  |         NULL | 2017-01-01 09:20:02 |
+|       5 | Buster     | Bluth     |   1173456782 | 2017-01-01 11:51:56 |
+|       6 | Jennifer   | NULL      |         NULL | 2017-01-01 13:07:10 |
+|       7 | Chris      | Martin    |   1123147789 | 2017-01-02 08:03:41 |
+|       8 | Charlie    | NULL      |   1139287883 | 2017-01-02 09:15:22 |
+|       9 | Emma       | Law       |   1123439899 | 2017-01-02 10:10:10 |
+|      10 | John       | Smith     |   1174987221 | 2017-01-02 12:07:23 |
+|      11 | Chris      | Martin    |   1123147789 | 2017-01-03 08:13:50 |
++---------+------------+-----------+--------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 24*/
+mysql> SELECT orders.orderID, customers.First_Name, customers.Last_Name, customers.phone_number, orders.order_time FROM orders RIGHT JOIN customers on customers.customerID=orders.customer_id ORDER BY orders.order_time LIMIT 10;
++---------+------------+-----------+--------------+---------------------+
+| orderID | First_Name | Last_Name | phone_number | order_time          |
++---------+------------+-----------+--------------+---------------------+
+|       2 | Emma       | Law       |   1123439899 | 2017-01-01 08:05:16 |
+|       3 | Harry      | Johnson   |         NULL | 2017-01-01 08:44:34 |
+|       4 | Daniel     | Williams  |         NULL | 2017-01-01 09:20:02 |
+|       5 | Buster     | Bluth     |   1173456782 | 2017-01-01 11:51:56 |
+|       6 | Jennifer   | NULL      |         NULL | 2017-01-01 13:07:10 |
+|       7 | Chris      | Martin    |   1123147789 | 2017-01-02 08:03:41 |
+|       8 | Charlie    | NULL      |   1139287883 | 2017-01-02 09:15:22 |
+|       9 | Emma       | Law       |   1123439899 | 2017-01-02 10:10:10 |
+|      10 | John       | Smith     |   1174987221 | 2017-01-02 12:07:23 |
+|      11 | Chris      | Martin    |   1123147789 | 2017-01-03 08:13:50 |
++---------+------------+-----------+--------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> 
+mysql> /*Query 25*/
+mysql> SELECT orders.orderID, customers.First_Name, customers.Last_Name, customers.phone_number, orders.order_time FROM customers RIGHT JOIN orders on orders.customer_id=customers.customerID ORDER BY orders.order_time LIMIT 10;
++---------+------------+-----------+--------------+---------------------+
+| orderID | First_Name | Last_Name | phone_number | order_time          |
++---------+------------+-----------+--------------+---------------------+
+|       1 | NULL       | NULL      |         NULL | 2017-01-01 08:02:11 |
+|       2 | Emma       | Law       |   1123439899 | 2017-01-01 08:05:16 |
+|       3 | Harry      | Johnson   |         NULL | 2017-01-01 08:44:34 |
+|       4 | Daniel     | Williams  |         NULL | 2017-01-01 09:20:02 |
+|       5 | Buster     | Bluth     |   1173456782 | 2017-01-01 11:51:56 |
+|       6 | Jennifer   | NULL      |         NULL | 2017-01-01 13:07:10 |
+|       7 | Chris      | Martin    |   1123147789 | 2017-01-02 08:03:41 |
+|       8 | Charlie    | NULL      |   1139287883 | 2017-01-02 09:15:22 |
+|       9 | Emma       | Law       |   1123439899 | 2017-01-02 10:10:10 |
+|      10 | John       | Smith     |   1174987221 | 2017-01-02 12:07:23 |
++---------+------------+-----------+--------------+---------------------+
+10 rows in set (0.01 sec)
+
+mysql> 
+mysql> /*Query 26*/
+mysql> UPDATE orders set customer_id=1 WHERE orderID=1;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+mysql> SELECT products.Name, products.Price, customers.First_Name, customers.Last_Name, orders.order_time FROM orders LEFT JOIN products on orders.product_id=products.productID LEFT JOIN customers on orders.customer_id=customers.customerID;
++------------+-------+------------+-----------+---------------------+
+| Name       | Price | First_Name | Last_Name | order_time          |
++------------+-------+------------+-----------+---------------------+
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-01 08:02:11 |
+| Espresso   |   2.5 | Emma       | Law       | 2017-01-01 08:05:16 |
+| Americano  |  3.25 | Harry      | Johnson   | 2017-01-01 08:44:34 |
+| CappuccINo |   3.5 | Daniel     | Williams  | 2017-01-01 09:20:02 |
+| Espresso   |   2.5 | Buster     | Bluth     | 2017-01-01 11:51:56 |
+| Flat White |   3.5 | Jennifer   | NULL      | 2017-01-01 13:07:10 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-02 08:03:41 |
+| CappuccINo |   3.5 | Charlie    | NULL      | 2017-01-02 09:15:22 |
+| Macchiato  |     3 | Emma       | Law       | 2017-01-02 10:10:10 |
+| CappuccINo |   3.5 | John       | Smith     | 2017-01-02 12:07:23 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-03 08:13:50 |
+| Filter     |     3 | Gob        | Bluth     | 2017-01-03 08:47:09 |
+| Flat White |   3.5 | John       | Smith     | 2017-01-03 09:12:11 |
+| Americano  |  3.25 | Jennifer   | NULL      | 2017-01-03 11:05:33 |
+| Latte      |   3.5 | Mark       | Watkins   | 2017-01-03 11:08:55 |
+| CappuccINo |   3.5 | Lindsay    | Bluth     | 2017-01-03 12:02:14 |
+| Macchiato  |     3 | Toby       | West      | 2017-01-03 13:41:22 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-04 08:08:56 |
+| CappuccINo |   3.5 | Charlie    | NULL      | 2017-01-04 11:23:43 |
+| Latte      |   3.5 | Harry      | Johnson   | 2017-01-05 08:30:09 |
+| Filter     |     3 | Chris      | Martin    | 2017-01-06 09:02:47 |
+| CappuccINo |   3.5 | Lucille    | Bluth     | 2017-01-06 13:23:34 |
+| Macchiato  |     3 | Gob        | Bluth     | 2017-01-07 09:12:39 |
+| Macchiato  |     3 | John       | Taylor    | 2017-01-07 11:24:15 |
+| Latte      |   3.5 | Sarah      | Taylor    | 2017-01-08 08:54:11 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-09 08:03:11 |
+| Flat White |   3.5 | Emily      | Simmonds  | 2017-01-10 10:34:12 |
+| CappuccINo |   3.5 | Mark       | Watkins   | 2017-01-10 11:02:11 |
+| Latte      |   3.5 | Paul       | Edmonds   | 2017-01-11 08:39:11 |
+| Latte      |   3.5 | Kat        | Nash      | 2017-01-12 13:20:13 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-14 08:27:10 |
+| Latte      |   3.5 | Emma       | Smith     | 2017-01-15 08:30:56 |
+| Espresso   |   2.5 | Michael    | Bluth     | 2017-01-16 10:02:11 |
+| Macchiato  |     3 | Charlie    | NULL      | 2017-01-17 09:50:05 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-18 08:22:55 |
+| CappuccINo |   3.5 | Buster     | Bluth     | 2017-01-19 09:00:19 |
+| Filter     |     3 | Lindsay    | Bluth     | 2017-01-19 11:33:00 |
+| Flat White |   3.5 | Harry      | Johnson   | 2017-01-20 08:02:21 |
+| CappuccINo |   3.5 | John       | Taylor    | 2017-01-21 09:45:50 |
+| Americano  |  3.25 | Emma       | Law       | 2017-01-22 10:10:34 |
+| Flat White |   3.5 | Paul       | Edmonds   | 2017-01-23 08:32:19 |
+| Flat White |   3.5 | Jennifer   | NULL      | 2017-01-23 08:45:12 |
+| Flat White |   3.5 | George     | Bluth     | 2017-01-23 12:45:30 |
+| Macchiato  |     3 | Lindsay    | Bluth     | 2017-01-24 08:01:27 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-25 08:05:13 |
+| Flat White |   3.5 | Lindsay    | Bluth     | 2017-01-26 10:49:10 |
+| Filter     |     3 | Mark       | Watkins   | 2017-01-27 09:23:57 |
+| Filter     |     3 | Chris      | Martin    | 2017-01-27 10:08:16 |
+| CappuccINo |   3.5 | Lucille    | Bluth     | 2017-01-27 10:13:09 |
+| Latte      |   3.5 | George     | Evans     | 2017-01-27 11:02:40 |
+| CappuccINo |   3.5 | Charlie    | NULL      | 2017-01-28 08:03:21 |
+| Espresso   |   2.5 | Emma       | Law       | 2017-01-28 08:33:28 |
+| Espresso   |   2.5 | Harry      | Johnson   | 2017-01-28 11:55:33 |
+| Espresso   |   2.5 | John       | Smith     | 2017-01-29 09:10:17 |
+| Flat White |   3.5 | Katie      | Armstrong | 2017-01-30 10:07:13 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-01 08:10:14 |
+| Macchiato  |     3 | John       | Taylor    | 2017-02-02 10:02:11 |
+| Filter     |     3 | Charlie    | NULL      | 2017-02-02 09:43:17 |
+| Filter     |     3 | Emily      | Simmonds  | 2017-02-03 08:33:49 |
+| Latte      |   3.5 | John       | Smith     | 2017-02-04 09:31:01 |
+| Americano  |  3.25 | Jennifer   | NULL      | 2017-02-05 09:07:10 |
+| CappuccINo |   3.5 | Toby       | West      | 2017-02-06 08:15:10 |
+| Macchiato  |     3 | Paul       | Edmonds   | 2017-02-07 08:27:26 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-07 08:45:10 |
+| Flat White |   3.5 | Lindsay    | Bluth     | 2017-02-08 10:37:10 |
+| CappuccINo |   3.5 | John       | Smith     | 2017-02-09 08:58:18 |
+| CappuccINo |   3.5 | John       | Taylor    | 2017-02-10 09:12:40 |
+| Americano  |  3.25 | Daniel     | Williams  | 2017-02-10 11:05:34 |
+| Espresso   |   2.5 | Emma       | Law       | 2017-02-11 08:00:38 |
+| CappuccINo |   3.5 | Kat        | Nash      | 2017-02-12 08:08:08 |
+| Filter     |     3 | Emily      | Simmonds  | 2017-02-12 09:22:10 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-13 08:37:45 |
+| Americano  |  3.25 | Emma       | Law       | 2017-02-13 12:34:56 |
+| Latte      |   3.5 | Mark       | Watkins   | 2017-02-14 08:22:43 |
+| Americano  |  3.25 | Daniel     | Williams  | 2017-02-14 09:12:56 |
+| CappuccINo |   3.5 | Sarah      | Taylor    | 2017-02-15 08:09:10 |
+| Flat White |   3.5 | Michael    | Bluth     | 2017-02-15 09:05:12 |
+| Espresso   |   2.5 | Kat        | Nash      | 2017-02-15 09:27:50 |
+| Macchiato  |     3 | Buster     | Bluth     | 2017-02-16 08:51:12 |
+| CappuccINo |   3.5 | Charlie    | NULL      | 2017-02-16 13:07:46 |
+| Latte      |   3.5 | Lindsay    | Bluth     | 2017-02-17 08:03:55 |
+| Latte      |   3.5 | Harry      | Johnson   | 2017-02-17 09:12:11 |
+| Americano  |  3.25 | Charlie    | NULL      | 2017-02-17 11:41:17 |
+| Flat White |   3.5 | Lucille    | Bluth     | 2017-02-17 13:05:56 |
+| Filter     |     3 | George     | Evans     | 2017-02-18 08:33:27 |
+| Espresso   |   2.5 | George     | Bluth     | 2017-02-19 08:12:31 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-20 09:50:17 |
+| CappuccINo |   3.5 | Sarah      | Taylor    | 2017-02-20 09:51:29 |
+| Latte      |   3.5 | Katie      | Armstrong | 2017-02-20 10:43:39 |
+| CappuccINo |   3.5 | Chris      | Martin    | 2017-02-21 08:32:17 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-21 10:30:11 |
+| CappuccINo |   3.5 | Emma       | Law       | 2017-02-21 11:08:45 |
+| Latte      |   3.5 | Mark       | Watkins   | 2017-02-22 11:46:32 |
+| Macchiato  |     3 | Emma       | Smith     | 2017-02-22 13:35:16 |
+| Flat White |   3.5 | John       | Smith     | 2017-02-23 08:34:48 |
+| Latte      |   3.5 | Paul       | Edmonds   | 2017-02-24 08:32:03 |
+| Macchiato  |     3 | John       | Smith     | 2017-02-25 08:03:12 |
+| Filter     |     3 | George     | Bluth     | 2017-02-25 09:34:23 |
+| Filter     |     3 | Toby       | West      | 2017-02-25 11:32:54 |
+| Americano  |  3.25 | Harry      | Johnson   | 2017-02-26 11:47:34 |
+| Flat White |   3.5 | Daniel     | Williams  | 2017-02-27 12:12:34 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-28 08:59:22 |
++------------+-------+------------+-----------+---------------------+
+102 rows in set (0.01 sec)
+
+mysql> 
+mysql> /*Query 27*/
+mysql> SELECT products.Name, products.Price, customers.First_Name, customers.Last_Name, orders.order_time FROM orders LEFT JOIN products on orders.product_id=products.productID LEFT JOIN customers on orders.customer_id=customers.customerID WHERE customers.Last_Name='Martin' ORDER BY orders.order_time desc;
++------------+-------+------------+-----------+---------------------+
+| Name       | Price | First_Name | Last_Name | order_time          |
++------------+-------+------------+-----------+---------------------+
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-28 08:59:22 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-21 10:30:11 |
+| CappuccINo |   3.5 | Chris      | Martin    | 2017-02-21 08:32:17 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-20 09:50:17 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-13 08:37:45 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-07 08:45:10 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-02-01 08:10:14 |
+| Filter     |     3 | Chris      | Martin    | 2017-01-27 10:08:16 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-25 08:05:13 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-18 08:22:55 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-14 08:27:10 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-09 08:03:11 |
+| Filter     |     3 | Chris      | Martin    | 2017-01-06 09:02:47 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-04 08:08:56 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-03 08:13:50 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-02 08:03:41 |
+| Espresso   |   2.5 | Chris      | Martin    | 2017-01-01 08:02:11 |
++------------+-------+------------+-----------+---------------------+
+17 rows in set (0.00 sec)
+
+mysql> 
+mysql> DROP DATABASE coffee_store;
+Query OK, 3 rows affected (0.56 sec)
+
+mysql> /*End of Assignment 5*/
+mysql> 
